@@ -3,8 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
+
 
 class Clicker extends Component
 {
@@ -24,6 +27,11 @@ class Clicker extends Component
         'email'=>$this->email,
         'password'=>$this->password
     ]);
+$this->reset(['name','email','password']);
+Session::flash('success', 'User created successfully');
+Session::flash('timeout', 5);
+
+
  }
     public function render()
     {

@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    
+
 
     <!-- Styles -->
 
@@ -19,7 +19,15 @@
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     @livewire('clicker')
     {{-- <livewire:clicker /> --}}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+    setTimeout(function() {
+        alert('ran');
+        $('.alert').fadeOut('slow');
+    }, {{ session('timeout', 3) }} * 1000); // Convert seconds to milliseconds
+});
+</script>
 </body>
 
 </html>

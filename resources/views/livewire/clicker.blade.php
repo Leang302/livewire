@@ -1,4 +1,7 @@
 <div>
+    @if (session('success'))
+     <p class="alert">   {{ session('success') }}</p>
+    @endif
     <form wire:submit.prevent='createNewUser' action="">
         <input wire:model="name" type="text" placeholder="Name">
         @error('name')
