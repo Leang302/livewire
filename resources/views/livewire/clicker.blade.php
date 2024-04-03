@@ -25,7 +25,12 @@
         <div wire:loading wire:target='profile'>
             <p>Uploading..</p>
         </div>
-        <button type="submit">Create</button>
+        <div wire:loading.delay wire:>
+            <span>Sending.....</span>
+        </div>
+
+        {{-- to avoid button spam from user --}}
+        <button wire:loading.class='' wire:loading.attr='disabled' type="submit">Create</button>
     </form>
     <hr>
     @foreach ($users as $user)
