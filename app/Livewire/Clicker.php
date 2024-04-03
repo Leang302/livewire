@@ -3,33 +3,35 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
+use Livewire\WithFileUploads;
 
 
 class Clicker extends Component
 {
 
+    use WithFileUploads;
     //not put something that's s here
     #[Rule('required|min:3|max:10')]
    public $name;
    #[Rule('required|email|unique:users')]
    public $email;
+
    #[Rule('required|min:3')]
    public $password;
+   #[Rule('nullable|sometimes|image|max:1024')]
+   public $profile;
 
  public function createNewUser(){
-    $this->validate();
-    User::create([
-        'name'=>$this->name,
-        'email'=>$this->email,
-        'password'=>$this->password
-    ]);
-$this->reset(['name','email','password']);
-Session::flash('success', 'User created successfully');
-Session::flash('timeout', 5);
+   $validated =  $this->validate();
+    if($this->profile){
+        //the return value of this thing is the file path
+        $validated['profile']=$this->profile->store('uploads','public');
+    }
+    User::create($validated);
+$this->reset(['name','email','password','profile']);
+session()->flash('message', 'User created successfully.');
 
 
  }

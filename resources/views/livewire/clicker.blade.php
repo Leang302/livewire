@@ -15,6 +15,16 @@
         @error('password')
         <p>{{ $message }}</p>
         @enderror
+        <input accept="image/png,image/jpeg" wire:model="profile" type="file" >
+        @error('profile')
+        <p>{{ $message }}</p>
+        @enderror
+        @if ($profile)
+            <img src="{{ $profile->temporaryUrl() }}" alt="">
+        @endif
+        <div wire:loading wire:target='profile'>
+            <p>Uploading..</p>
+        </div>
         <button type="submit">Create</button>
     </form>
     <hr>
