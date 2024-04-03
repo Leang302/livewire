@@ -6,10 +6,11 @@ use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Livewire\WithPagination;
 
 class Clicker extends Component
 {
+    use WithPagination;
 
     use WithFileUploads;
     //not put something that's s here
@@ -38,7 +39,7 @@ session()->flash('message', 'User created successfully.');
     public function render()
     {
         $title = 'test';
-        $users = User::all();
+        $users = User::paginate(5);
         return view('livewire.clicker',[
             'title'=>$title,
             'users'=>$users
